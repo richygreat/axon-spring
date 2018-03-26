@@ -29,8 +29,7 @@ public class SendMoney {
 		id = event.getTransactionId();
 	}
 
-	public void processTransaction() {
-		/* Business Logic of calling Rest Api and decide which event based on result */
+	public void processedTransaction() {
 		apply(new TransferCompletedEvent(id));
 	}
 
