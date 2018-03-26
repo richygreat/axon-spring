@@ -10,6 +10,7 @@ import org.axonframework.spring.stereotype.Aggregate;
 import com.github.richygreat.as.command.CreateTransferCommand;
 import com.github.richygreat.as.event.TransferCompletedEvent;
 import com.github.richygreat.as.event.TransferCreatedEvent;
+import com.github.richygreat.as.event.TransferReadyEvent;
 
 @Aggregate
 public class SendMoney {
@@ -29,7 +30,15 @@ public class SendMoney {
 		id = event.getTransactionId();
 	}
 
-	public void processedTransaction() {
+	public void processTransaction() {
+		apply(new TransferReadyEvent(id));
+	}
+
+	public void sendDebitMail() {
+		/* Set debitMailSent status as true */
+	}
+
+	public void processDebit() {
 		apply(new TransferCompletedEvent(id));
 	}
 

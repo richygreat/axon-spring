@@ -4,18 +4,17 @@ import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.commandhandling.model.Aggregate;
 import org.axonframework.commandhandling.model.Repository;
 import org.axonframework.eventhandling.EventBus;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.github.richygreat.as.aggregate.SendMoney;
-import com.github.richygreat.as.service.SendMoneyService;
 
 public class SendMoneyCommandHandler {
+	private static final Logger logger = LoggerFactory.getLogger(SendMoneyCommandHandler.class);
+
 	private Repository<SendMoney> repository;
 
 	private EventBus eventBus;
-
-	@Autowired
-	private SendMoneyService sendMoneyService;
 
 	public SendMoneyCommandHandler(Repository<SendMoney> repository, EventBus eventBus) {
 		this.repository = repository;
@@ -24,12 +23,27 @@ public class SendMoneyCommandHandler {
 
 	@CommandHandler
 	public void handle(ProcessTransferCommand command) {
+		logger.info("handle ProcessTransferCommand");
 		Aggregate<SendMoney> sendMoneyAggregate = repository.load(command.getTransactionId());
-		sendMoneyService.triggerDebit();
-		/*
-		 * Handle service response and then call aggregate function success or failure
-		 */
-		sendMoneyAggregate.execute(sendMoney -> sendMoney.processedTransaction());
+		sendMoneyAggregate.execute(sendMoney -> sendMoney.processTransaction());
+	}
+
+	@CommandHandler
+	public void handle(SendTransferCompleteEmailCommand command) {
+		logger.info("handle SendTransferCompleteEmailCommand");
+		Aggregate<SendMoney> sendMoneyAggregate = repository.load(command.getTransactionId());
+		sendMoneyAggregate.execute(sendMoney -> sendMoney.sendDebitMail());
+	}
+
+	@CommandHandler
+	public void handle(ProcessDebitCommand command) {
+		logger.info("handle ProcessDebitCommand");
+		Aggregate<SendMoney> sendMoneyAggregate = repository.load(command.getTransactionId());
+		sendMoneyAggregate.execute(sendMoney -> sendMoney.processDebit());
+	}
+
+	@CommandHandler
+	public void handle(HandleSuspensionCommand command) {
 	}
 
 	public Repository<SendMoney> getRepository() {

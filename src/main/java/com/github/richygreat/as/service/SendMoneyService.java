@@ -4,7 +4,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SendMoneyService {
-	public void triggerDebit() {
+	public boolean triggerDebit() {
 		System.out.println("SendMoneyService.triggerDebit");
+		return true;
 	}
 }
