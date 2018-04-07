@@ -83,6 +83,7 @@
       <id>aws-snapshot</id>
       <name>AWS Snapshot Repository</name>
       <url>s3://rgmaven/snapshots</url>
+      <uniqueVersion>false</uniqueVersion>
     </snapshotRepository>
   </distributionManagement>
 
