@@ -1,3 +1,3 @@
 language: java
 jdk: oraclejdk8
-script: mvn -Dchangelist=$TRAVIS_BRANCH deploy -B
+script: mvn -Drevision=0.0.0 -Dchangelist=-$TRAVIS_BRANCH deploy -B
