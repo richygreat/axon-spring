@@ -76,25 +76,31 @@
 	</scm>
 
 	<distributionManagement>
-	    <repository>
-	      <id>aws-release</id>
-	      <name>AWS Release Repository</name>
-	      <url>s3://rgmaven/releases</url>
-	    </repository>
-	    <snapshotRepository>
-	      <id>aws-snapshot</id>
-	      <name>AWS Snapshot Repository</name>
-	      <url>s3://rgmaven/snapshots</url>
-	    </snapshotRepository>
+		<repository>
+			<id>aws-release</id>
+			<name>AWS Release Repository</name>
+			<url>s3://rgmaven/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>aws-snapshot</id>
+			<name>AWS Snapshot Repository</name>
+			<url>s3://rgmaven/snapshots</url>
+		</snapshotRepository>
 	</distributionManagement>
 
 	<build>
-	    <extensions>
-	      <extension>
-		<groupId>org.springframework.build</groupId>
-		<artifactId>aws-maven</artifactId>
-		<version>5.0.0.RELEASE</version>
-	      </extension>
-	    </extensions>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+		<extensions>
+			<extension>
+				<groupId>org.springframework.build</groupId>
+				<artifactId>aws-maven</artifactId>
+				<version>5.0.0.RELEASE</version>
+			</extension>
+		</extensions>
 	</build>
 </project>
