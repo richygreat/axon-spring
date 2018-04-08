@@ -1,0 +1,16 @@
+<assembly>
+    <formats>
+        <format>zip</format>
+    </formats>
+
+    <fileSets>
+        <fileSet>
+            <directory>to_complete</directory>
+            <outputDirectory />
+            <includes>
+                <include>**/*.jar</include>
+                <include>**/*.yml</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+</assembly>
