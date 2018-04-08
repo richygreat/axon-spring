@@ -18,7 +18,7 @@
       <directory>${project.build.directory}</directory>
       <outputDirectory>/</outputDirectory>
       <includes>
-        <include>*master.jar</include>
+        <include>*0.0.0*.jar</include>
       </includes>
     </fileSet>
   </fileSets>
